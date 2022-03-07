@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To do list</title>
+    <LINK rel="stylesheet" type="text/css" href="firstvue.css">
+
+
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+
+<body>
+
+    <div id="titre">
+        <h1>Ma to-do liste </h1>
+    </div>
+
+    <div id="app"> 
+
+
+        <div id="block">
+
+            <input class="allBouton" type="text" placeholder="Remplir pour ajouter" v-model="message"/>
+       
+            <button class="vert"  @click="ajoutTache" v-if="message !='' ">Ajouter</button> <!--Au click lance la fonction ajoutTache, le bouton apparait QUE si le input n'est pas vide-->
+            
+            <p v-for="liste in todo" > - {{ liste }}  
+                <input type="checkbox" /><br />
+            </p>
+        
+            <button class="vert" id="inverser" @click="inverser">Inverser l'ordre de la liste</button> <!--lance la fonction inverser au click-->
+
+            <button id="clean" class="allBouton" @click="clean">clean</button>
+        </div>
+
+    </div>
+
+<script>
+ const vue = Vue.createApp ( {
+     data(){
+         return {
+             message: '', //message qu'on rempli dans l'input
+             todo: ['Recruter soukeyna', 'manger du chocolat'] //contenu de la to do list
+         }
+     },
+
+     methods:{
+         inverser(){
+             this.todo.reverse();
+         },
+
+         ajoutTache(){
+             this.todo.push(this.message); //pour ajouter le message rempli dans le input dans la liste
+             this.message= ''; //pour que l'input se vide une fois qu'on à appuyer sur ajouter
+         },
+
+         clean () {
+            this.todo= ['']; 
+         }
+     }
+ }).mount('#app');
+</script>
+    
+</body>
+</html>
